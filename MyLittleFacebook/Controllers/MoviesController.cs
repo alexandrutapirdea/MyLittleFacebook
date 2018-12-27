@@ -5,28 +5,27 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using MyLittleFacebook.Models;
+using MyLittleFacebook.ViewModel;
 
 namespace MyLittleFacebook.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies
-        public ActionResult Random()
+        public ViewResult Index()
         {
-            var movie = new Movie() {Name = "Shadowhunters"};
+            var movies = GetMovies();
 
-//            return View(movie);
-            return HttpNotFound();
+            return View(movies);
         }
 
-        public ActionResult Index(int? cm, string Name)
+        private IEnumerable<Movie> GetMovies()
         {
-            if (!cm.HasValue)
-                cm = 15;
-            if (String.IsNullOrWhiteSpace(Name))
-                Name = "JohnG";
-
-            return Content("Hello");
+            return new List<Movie>
+            {
+                new Movie { Id = 1, Name = "Shrek" },
+                new Movie { Id = 2, Name = "Wall-e" }
+            };
         }
+
     }
 }
